@@ -10,7 +10,7 @@ import DataSet from "@antv/data-set";
 export default {
   data() {
     return {
-      chart: null,
+      chart: null
     };
   },
   props: {
@@ -23,10 +23,12 @@ export default {
       }
     },
     fanTotal: 0,
-    imageColor:{},
+    imageColor: {}
   },
   mounted() {
-    this.drawChart();
+    setTimeout(() => {
+      this.drawChart();
+    }, 100);
   },
 
   computed: {
@@ -43,7 +45,6 @@ export default {
   watch: {
     fans: {
       handler: function(a, b) {
-
         this.drawChart();
       },
       deep: true
@@ -73,7 +74,7 @@ export default {
       this.chart = new G2.Chart({
         container: "mountNode",
         forceFit: true,
-        padding: 'auto',
+        padding: "auto",
         height: 300
       });
 
@@ -82,8 +83,8 @@ export default {
       this.chart.coord("theta", {
         radius: 0.65, // 设置饼图的大小
         innerRadius: 0.6,
-        startAngle: 2 * Math.PI / 2,
-        endAngle: 6 * Math.PI / 2
+        startAngle: (2 * Math.PI) / 2,
+        endAngle: (6 * Math.PI) / 2
       });
       this.chart.tooltip({
         showTitle: false
@@ -112,8 +113,7 @@ export default {
         })
         .style({
           lineWidth: 1,
-          stroke: "#eee",
-
+          stroke: "#eee"
         });
       this.chart.guide().html({
         position: ["50%", "50%"],
