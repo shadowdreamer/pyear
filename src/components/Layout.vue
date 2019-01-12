@@ -29,7 +29,7 @@
         <p>您的PLv是<em>{{pdata.plv}}</em>,超过了全世界<em>{{pdata.plv|plvPercent}}%</em>的玩家</p>
         <p>您与<em><span :style="{color:imageColor[pdata.idol]}">{{pdata.idol}}</span></em>的亲密度最高，达到了<em>{{pdata.idolLove}}</em>,
           应该是一名<em><span :style="{color:imageColor[pdata.idol]}">{{pdata.idol}}</span></em>P。</p>
-        <p>您的粉丝分部情况如下：</p>
+        <p>您的粉丝分布情况如下：</p>
         <g2radius
           :fans="pdata.fans"
           :fanTotal="pdata.fanTotal"
@@ -42,7 +42,7 @@
         <p class="word">“灭了同担”</p>
         <p>在过去的2018年里您一共打了<em>{{pdata.songCount}}</em>首歌，其中FC的回数是<em>{{pdata.SongFcCount}}</em>。</p>
 
-        <p>您MillonMix模式下FC的歌有<em>{{pdata.fcTotal}}</em>首，FC率达到了<em>{{Math.round(pdata.fcTotal*100/74)}}</em>%，真了不起。</p>
+        <p>您MillonMix模式下FC的歌有<em>{{pdata.fcTotal}}</em>首，FC率达到了<em>{{Math.round(pdata.fcTotal*100/songList.length)}}</em>%，真了不起。</p>
         <p><em>{{pdata.songMost}}</em>是您打的最多的一首歌，一共打了<em>{{pdata.songMostCount}}</em>次，您一定很喜欢这首歌。</p>
         <p>2018年您一共抽了<em>{{pdata.gashaCount}}</em>次卡，增加了<em>{{pdata.SSRCount}}</em>个new SSR。</p>
         <p class="word">
@@ -326,218 +326,12 @@ export default {
   data() {
     return {
       pdata: {},
-      enqueteON: false,
       input: {},
-      idollist: [
-        { name: "白石紬", color: "#ebe1ff", lable: "0" },
-        { name: "天海春香", color: "#e22b30", label: "1" },
-        { name: "如月千早", color: "#2743d2", lable: "2" },
-        { name: "萩原雪歩", color: "#2743d2", lable: "3" },
-        { name: "高槻やよい", color: "#f39939", lable: "4" },
-        { name: "秋月律子", color: "#01a860", lable: "5" },
-        { name: "三浦あずさ", color: "#9238be", lable: "6" },
-        { name: "水瀬伊織", color: "#fd99e1", lable: "7" },
-        { name: "菊地真", color: "#515558", lable: "8" },
-        { name: "双海亜美/真美", color: "#ffe43f", lable: "9" },
-        { name: "星井美希", color: "#b4e04b", lable: "10" },
-        { name: "我那覇響", color: "#01adb9", lable: "11" },
-        { name: "四条貴音", color: "#a6126a", lable: "12" },
-        { name: "伊吹翼", color: "#fed552", lable: "13" },
-        { name: "エミリー", color: "#554171", lable: "14" },
-        { name: "大神環", color: "#ee762e", lable: "15" },
-        { name: "春日未来", color: "#ea5b76", lable: "16" },
-        { name: "北上麗花", color: "#6bb6b0", lable: "17" },
-        { name: "北沢志保", color: "#afa690", lable: "18" },
-        { name: "木下ひなた", color: "#d1342c", lable: "19" },
-        { name: "高坂海美", color: "#e9739b", lable: "20" },
-        { name: "佐竹美奈子", color: "#58a6dc", lable: "21" },
-        { name: "篠宮可憐", color: "#b63b40", lable: "22" },
-        { name: "島原エレナ", color: "#9bce92", lable: "23" },
-        { name: "ジュリア", color: "#d7385f", lable: "24" },
-        { name: "周防桃子", color: "#efb864", lable: "25" },
-        { name: "高山紗代子", color: "#7f6575", lable: "26" },
-        { name: "田中琴葉", color: "#92cfbb", lable: "27" },
-        { name: "天空橋朋花", color: "#bee3e3", lable: "28" },
-        { name: "徳川まつり", color: "#5abfb7", lable: "29" },
-        { name: "所恵美", color: "#454341", lable: "30" },
-        { name: "豊川風花", color: "#7278a8", lable: "31" },
-        { name: "中谷育", color: "#f7e78e", lable: "32" },
-        { name: "永吉昴", color: "#aeb49c", lable: "33" },
-        { name: "七尾百合子", color: "#c7b83c", lable: "34" },
-        { name: "二階堂千鶴", color: "#f19557", lable: "35" },
-        { name: "野々原茜", color: "#eb613f", lable: "36" },
-        { name: "箱崎星梨花", color: "#ed90ba", lable: "37" },
-        { name: "馬場このみ", color: "#f1becb", lable: "38" },
-        { name: "福田のり子", color: "#eceb70", lable: "39" },
-        { name: "舞浜歩", color: "#e25a9b", lable: "40" },
-        { name: "真壁瑞希", color: "#99b7dc", lable: "41" },
-        { name: "松田亜利沙", color: "#b54461", lable: "42" },
-        { name: "宮尾美也", color: "#b54461", lable: "43" },
-        { name: "最上静香", color: "#6495cf", lable: "44" },
-        { name: "望月杏奈", color: "#7e6ca8", lable: "45" },
-        { name: "百瀬莉緒", color: "#f19591", lable: "46" },
-        { name: "矢吹可奈", color: "#f5ad3b", lable: "47" },
-        { name: "横山奈緒", color: "#788bc5", lable: "48" },
-        { name: "ロコ", color: "#fff03c", lable: "49" },
-        { name: "桜守歌織", color: "#274079", lable: "50" }
-      ],
-      imageColor: {
-        天海春香: "#e22b30",
-        如月千早: "#2743d2",
-        萩原雪歩: "#2743d2",
-        高槻やよい: "#f39939",
-        秋月律子: "#01a860",
-        三浦あずさ: "#9238be",
-        水瀬伊織: "#fd99e1",
-        菊地真: "#515558",
-        "双海亜美/真美": "#ffe43f",
-        星井美希: "#b4e04b",
-        我那覇響: "#01adb9",
-        四条貴音: "#a6126a",
-        伊吹翼: "#fed552",
-        エミリー: "#554171",
-        大神環: "#ee762e",
-        春日未来: "#ea5b76",
-        北上麗花: "#6bb6b0",
-        北沢志保: "#afa690",
-        木下ひなた: "#d1342c",
-        高坂海美: "#e9739b",
-        佐竹美奈子: "#58a6dc",
-        篠宮可憐: "#b63b40",
-        島原エレナ: "#9bce92",
-        ジュリア: "#d7385f",
-        周防桃子: "#efb864",
-        高山紗代子: "#7f6575",
-        田中琴葉: "#92cfbb",
-        天空橋朋花: "#bee3e3",
-        徳川まつり: "#5abfb7",
-        所恵美: "#454341",
-        豊川風花: "#7278a8",
-        中谷育: "#f7e78e",
-        永吉昴: "#aeb49c",
-        七尾百合子: "#c7b83c",
-        二階堂千鶴: "#f19557",
-        野々原茜: "#eb613f",
-        箱崎星梨花: "#ed90ba",
-        馬場このみ: "#f1becb",
-        福田のり子: "#eceb70",
-        舞浜歩: "#e25a9b",
-        真壁瑞希: "#99b7dc",
-        松田亜利沙: "#b54461",
-        宮尾美也: "#b54461",
-        最上静香: "#6495cf",
-        望月杏奈: "#7e6ca8",
-        百瀬莉緒: "#f19591",
-        矢吹可奈: "#f5ad3b",
-        横山奈緒: "#788bc5",
-        ロコ: "#fff03c",
-        桜守歌織: "#274079",
-        白石紬: "#ebe1ff",
-        其他: "#ccc"
-      },
-      eventList: [
-        "～HOME, SWEET FRIENDSHIP～",
-        "～昏き星、遠い月～",
-        "～合言葉はスタートアップ！～",
-        "〜虹色letters〜",
-        "～星屑のシンフォニア～",
-        "～ZETTAI × BREAK!! トゥインクルリズム～",
-        "～ジレるハートに火をつけて～",
-        "～Melty Fantasia～",
-        "～Birth of Color～",
-        "～花ざかりWeekend✿～",
-        "～Eternal Harmony～",
-        "BRAND★NEW★PERFORM@NCE!!!",
-        "～Blooming Star～",
-        "～サンリズム・オーケストラ♪～",
-        "～ビッグバンズバリボー!!!!!～",
-        "～brave HARMONY～",
-        "～オーディナリィ・クローバー～",
-        "～Starry Melody～",
-        "～ラスト・アクトレス～",
-        "～ジャングル☆パーティー～",
-        "～ハーモニクス～",
-        "～PRETTY DREAMER～",
-        "～ハルマチ女子～"
-      ],
-      songList: [
-        "Brand New Theater",
-        "THE IDOLM＠STER",
-        "Thank You！",
-        "自分REST＠RT",
-        "READY‼",
-        "Welcome‼",
-        "待ち受けプリンス",
-        "UNION‼",
-        "Blooming Star",
-        "ToP!!!!!!!!!!!!!",
-        "Dreaming！",
-        "メリー",
-        "THE IDOLM＠STER 初星-mix",
-        "ココロがかえる場所",
-        "素敵なキセキ",
-        "透明なプロローグ",
-        "スマイルいちばん",
-        "ハッピー☆ラッキー☆ジェットマシーン",
-        "Growing Storm！",
-        "オリジナル声になって",
-        "Princess Be Ambitious‼",
-        "HOME，SWEET FRIENDSHIP",
-        "合言葉はスタートアップ！",
-        "ココロ☆エクササイズ",
-        "ZETTAI × BREAK‼ トゥインクルリズム",
-        "ジレるハートに火をつけて",
-        "Birth of Color",
-        "vivid color",
-        "咲くは浮世の君花火",
-        "ビッグバンズバリボー!!!!!",
-        "チョー↑元気Show☆アイドルch＠ng！",
-        "Starry Melody",
-        "フェスタ・イルミネーション",
-        "PRETTY DREAMER",
-        "アニマル☆ステイション！",
-        "Blue Symphony",
-        "Sentimental Venus",
-        "Precious Grain",
-        "瑠璃色金魚と花菖蒲",
-        "IMPRESSION→LOCOMOTION！",
-        "Shooting Stars",
-        "アフタースクールパーリータイム",
-        "FairyTaleじゃいられない",
-        "ライアー・ルージュ",
-        "昏き星、遠い月",
-        "ユニゾン☆ビート",
-        "Melty Fantasia",
-        "Eternal Harmony",
-        "WHY?",
-        "brave HARMONY",
-        "...In The Name Of。 ...LOVE？",
-        "ラスト・アクトレス",
-        "恋心マスカレード",
-        "ハーモニクス",
-        "Raise the FLAG",
-        "Marionetteは眠らない",
-        "恋のLesson初級編",
-        "ハミングバード",
-        "トキメキの音符になって",
-        "Good-Sleep，Baby♡",
-        "STANDING ALIVE",
-        "Happy Darling",
-        "Angelic Parade♪",
-        "ドリームトラベラー",
-        "虹色letters",
-        "dear...",
-        "星屑のシンフォニア",
-        "ハッピ～ エフェクト！",
-        "花ざかりWeekend✿",
-        "ファンタジスタ・カーニバル",
-        "サンリズム・オーケストラ♪",
-        "オーディナリィ・クローバー",
-        "Heart♡・デイズ・Night☆",
-        "ジャングル☆パーティー",
-        "FIND YOUR WIND！",
-        "ハルマチ女子"
-      ],
+      idollist: [],
+      imageColor: {},
+      eventList: [],
+      songList: [],
+      enqueteON: false,
       phone: false,
       loading: false
     };
@@ -570,7 +364,7 @@ export default {
       tmp = JSON.stringify(this.input);
       localStorage.pdata = tmp;
       this.pdata = JSON.parse(tmp);
-
+      this.phone =false;
       this.enqueteON = false;
     },
     deleteidol(index) {
@@ -593,34 +387,17 @@ export default {
     }
   },
   created() {
-    var defult = `{
-        "pname":"defult",
-        "time": 1498838400000,
-        "idol": "",
-        "idolLove": "",
-        "fanTotal": "100000",
-        "fans": [
-          { "name": "天海春香", "value": 50000 },
-          { "name": "箱崎星梨花", "value": 40000 },
-          { "name": "所恵美", "value": 30000 },
-          { "name": "エミリー", "value": 13431 }
-        ],
-        "friend": 0,
-        "flowerSend": 0,
-        "flowerResive": 0,
-        "eventName": "",
-        "eventRank": 0,
-        "songCount": 0,
-        "SongFcCount": 0,
-        "fcTotal": 0,
-        "songMost": "",
-        "songMostCount": 0,
-        "gashaCount": 0,
-        "SSRCount": 0,
-        "pinkGasha": 0,
-        "pinkSSR": 0,
-        "aniva": 0
-      }`;
+    let defult = null;
+    fetch("./mltd.json").then(res =>
+      res.json().then(res => {
+        defult = JSON.stringify(res.defult);
+        this.idollist = res.idollist;
+        this.imageColor = res.imageColor;
+        this.eventList = res.eventList;
+        this.songList = res.songList;
+      })
+    );
+
 
     if (!localStorage.pdata) {
       localStorage.pdata = defult;
@@ -767,14 +544,14 @@ em {
   padding: 0px 0px 30px;
 }
 
-.submit{
+.submit {
   background-color: white;
   width: 100vw;
   padding: 10px 80px;
   position: fixed;
   bottom: 0px;
 }
-.nothing{
+.nothing {
   height: 200px;
 }
 .qr p {

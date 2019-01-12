@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import { Button, Select,Option,Input,InputNumber,DatePicker,Loading} from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css'
 import h2c from 'html2canvas'
 import c2img from './components/canvas2image.js'
 
