@@ -1,27 +1,36 @@
 <template>
   <div id="app">
-    <layout></layout>
+
+    <LayoutZH v-if="lang == 'zh-CN'"></LayoutZH>
+    <LayoutJA v-else></LayoutJA>
   </div>
 </template>
 
 <script>
-import Layout from './components/Layout.vue'
+import LayoutJA from "./components/LayoutJA.vue";
+import LayoutZH from "./components/LayoutZH.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    Layout
+    LayoutJA,
+    LayoutZH
+  },
+  computed: {
+    lang() {
+      return navigator.language;
+    }
   }
-}
+};
 </script>
 
 <style>
-*{
+* {
   margin: 0px;
   padding: 0px;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
