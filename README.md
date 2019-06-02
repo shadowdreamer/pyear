@@ -1,5 +1,6 @@
 # pyear
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d12a485c-7c63-4000-a735-ec25cd293633/deploy-status)](https://app.netlify.com/sites/pedantic-heisenberg-0663be/deploys)
 ## Project setup
 ```
 npm install
@@ -13,16 +14,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
